@@ -5,7 +5,7 @@ RETURNS TRIGGER AS
 $$
 BEGIN
 	-- Adds the old data from the column that changed into duck_audits table
-	INSERT INTO table_duck_audits(name, notes, show, studio, changed_on)
+	INSERT INTO duck_audits(name, notes, show, studio, changed_on)
 	VALUES(OLD.name, OLD.notes, OLD.show, OLD.studio, CURRENT_TIMESTAMP);
 	RETURN OLD;
 END;
@@ -15,23 +15,23 @@ LANGUAGE PLPGSQL;
 -- Creates trigger
 -- Gets called every time a column gets updated in duck table
 CREATE TRIGGER TR_log_data
-AFTER UPDATE ON table_duck
+AFTER UPDATE ON duck
 FOR EACH ROW
 EXECUTE FUNCTION TF_log_data();
 
 -- Updates duck table
-UPDATE table_duck
+UPDATE duck
 SET name = 'test'
 WHERE id = 1;
 
-UPDATE table_duck
+UPDATE duck
 SET name = 'dummy'
 WHERE id = 43;
 
-UPDATE table_duck
+UPDATE duck
 SET name = 'dummy2'
 WHERE id = 32;
 
 -- Select
-SELECT * FROM table_duck_audits
+SELECT * FROM duck_audits
 

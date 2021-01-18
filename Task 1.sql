@@ -1,4 +1,4 @@
-CREATE TABLE table_duck (
+CREATE TABLE duck (
 	id SERIAL PRIMARY KEY,
 	name TEXT NOT NULL,
 	show TEXT NOT NULL,
@@ -7,7 +7,7 @@ CREATE TABLE table_duck (
 );
 
 -- IMPORTS ALL DATA FROM CSV FILE
-COPY table_duck(name, show, studio, notes)
+COPY duck(name, show, studio, notes)
 FROM 'C:\list-of-fictional-ducks-in-animation-wikipedia.csv'
 DELIMITER ','
 CSV HEADER;
